@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="theme-color" content="#ffd9e8">
+<title>别盯着我看 · 7 款动态表情包</title>
+<style>
+  :root{
+    --ink:#5f1836;
+    --ink-soft:#8c4a66;
+    --pink:#ff4f8b;
+    --pink-deep:#d6407a;
+    --card:rgba(255,255,255,.8);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:linear-gradient(165deg,#fff7fb 0%,#ffe4ef 48%,#ffd2e6 100%);
+    color:var(--ink);
+    min-height:100vh;
+    padding:0 16px 44px;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before,body::after{
+    content:"";position:fixed;border-radius:50%;filter:blur(60px);opacity:.55;pointer-events:none;z-index:0;
+  }
+  body::before{width:300px;height:300px;background:#ffb3d1;top:-90px;left:-90px;}
+  body::after{width:340px;height:340px;background:#ffc9e3;bottom:-120px;right:-120px;}
+  .wrap{position:relative;z-index:1;max-width:520px;margin:0 auto;}
+
+  header{text-align:center;padding-top:32px;}
+  .pill{
+    display:inline-block;font-size:12px;letter-spacing:.8px;color:var(--pink-deep);
+    background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.95);
+    padding:6px 14px;border-radius:999px;box-shadow:0 6px 18px rgba(214,64,122,.12);
+  }
+  h1{
+    font-size:34px;line-height:1.25;margin:16px 0 10px;letter-spacing:4px;font-weight:800;
+    color:var(--ink);text-shadow:0 2px 0 rgba(255,255,255,.6);
+  }
+  .sub{margin:0;font-size:14px;line-height:1.75;color:var(--ink-soft);}
+  .sub b{color:var(--pink-deep);font-weight:700;}
+
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:24px;}
+  .card{
+    background:var(--card);border:1px solid rgba(255,255,255,.9);border-radius:22px;
+    padding:10px 10px 12px;box-shadow:0 10px 26px rgba(216,90,140,.14);
+    cursor:pointer;transition:transform .16s ease, box-shadow .16s ease;
+    -webkit-user-select:none;user-select:none;
+  }
+  .card:active{transform:scale(.97);box-shadow:0 6px 16px rgba(216,90,140,.18);}
+  .thumb{display:block;border-radius:16px;overflow:hidden;background:#ffeaf3;aspect-ratio:1/1;}
+  .thumb img{display:block;width:100%;height:auto;}
+  .label{display:block;text-align:center;margin-top:9px;font-size:14px;font-weight:600;letter-spacing:2px;color:#8c3358;}
+
+  .hint{margin:16px 2px 0;text-align:center;font-size:12.5px;color:#a97a8c;letter-spacing:.5px;}
+
+  .guide{
+    margin-top:26px;background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.95);
+    border-radius:22px;padding:20px 18px 18px;box-shadow:0 10px 26px rgba(216,90,140,.12);
+  }
+  .guide h2{margin:0;font-size:16px;letter-spacing:1.5px;color:var(--ink);}
+  .guide ol{list-style:none;margin:14px 0 0;padding:0;}
+  .guide li{display:flex;gap:12px;align-items:flex-start;font-size:14px;line-height:1.65;color:#7a4359;margin-top:12px;}
+  .guide li .n{
+    flex:0 0 24px;height:24px;margin-top:1px;border-radius:50%;
+    background:linear-gradient(145deg,#ff86b4,#ff4f8b);color:#fff;
+    font-size:13px;font-weight:700;display:grid;place-items:center;
+    box-shadow:0 4px 10px rgba(255,79,139,.35);
+  }
+  .tip{
+    margin:16px 0 0;font-size:12.5px;line-height:1.75;color:#a06c80;
+    background:#fff6fa;border:1px dashed #ffc9dc;border-radius:14px;padding:12px 13px;
+  }
+  .tip b{color:var(--pink-deep);font-weight:700;}
+
+  footer{margin-top:28px;text-align:center;font-size:12px;line-height:1.8;color:#bd8fa3;}
+
+  .viewer{
+    position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;gap:14px;padding:28px;
+    background:rgba(48,10,28,.74);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  }
+  .viewer[hidden]{display:none;}
+  .viewer img{
+    width:min(84vw,400px);height:auto;border-radius:22px;background:#fff;
+    box-shadow:0 24px 60px rgba(0,0,0,.4);
+  }
+  .viewer .vname{color:#fff;font-size:15px;letter-spacing:3px;margin:0;}
+  .viewer .vhint{color:rgba(255,255,255,.72);font-size:13px;margin:0;}
+  .viewer .close{
+    position:absolute;top:16px;right:16px;width:40px;height:40px;border:0;border-radius:50%;
+    background:rgba(255,255,255,.18);color:#fff;font-size:20px;line-height:1;
+    display:grid;place-items:center;cursor:pointer;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  }
+  @media (max-width:340px){
+    h1{font-size:28px;}
+    .grid{gap:10px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="pill">微信动态表情包 · 7 款</span>
+    <h1>别盯着我看</h1>
+    <p class="sub">长按任意动图 →「保存图片」<br>就能存进相册，<b>再加进微信表情</b></p>
+  </header>
+
+  <main class="grid" id="grid">
+    <div class="card" data-src="gifs/01-shy.gif" data-name="害羞">
+      <span class="thumb"><img src="gifs/01-shy.gif" alt="害羞" width="240" height="240"></span>
+      <span class="label">害羞</span>
+    </div>
+    <div class="card" data-src="gifs/02-happy.gif" data-name="开心">
+      <span class="thumb"><img src="gifs/02-happy.gif" alt="开心" width="240" height="240"></span>
+      <span class="label">开心</span>
+    </div>
+    <div class="card" data-src="gifs/03-shock.gif" data-name="震惊">
+      <span class="thumb"><img src="gifs/03-shock.gif" alt="震惊" width="240" height="240"></span>
+      <span class="label">震惊</span>
+    </div>
+    <div class="card" data-src="gifs/04-peek.gif" data-name="偷看">
+      <span class="thumb"><img src="gifs/04-peek.gif" alt="偷看" width="240" height="240"></span>
+      <span class="label">偷看</span>
+    </div>
+    <div class="card" data-src="gifs/05-angry.gif" data-name="生气">
+      <span class="thumb"><img src="gifs/05-angry.gif" alt="生气" width="240" height="240"></span>
+      <span class="label">生气</span>
+    </div>
+    <div class="card" data-src="gifs/06-confused.gif" data-name="疑惑">
+      <span class="thumb"><img src="gifs/06-confused.gif" alt="疑惑" width="240" height="240"></span>
+      <span class="label">疑惑</span>
+    </div>
+    <div class="card" data-src="gifs/07-sad.gif" data-name="委屈">
+      <span class="thumb"><img src="gifs/07-sad.gif" alt="委屈" width="240" height="240"></span>
+      <span class="label">委屈</span>
+    </div>
+  </main>
+
+  <p class="hint">点一下可以看大图，长按保存更顺手</p>
+
+  <section class="guide">
+    <h2>3 步添加成微信表情</h2>
+    <ol>
+      <li><span class="n">1</span><span>长按上面的动图，点「<b>保存图片</b>」存到手机相册</span></li>
+      <li><span class="n">2</span><span>打开微信 →「我」→「表情」</span></li>
+      <li><span class="n">3</span><span>点「添加的单个表情」→ 右上角「＋」→ 从相册选择</span></li>
+    </ol>
+    <p class="tip"><b>小提示：</b>一定要用「保存图片 / 存储图像」，动图才会动。安卓手机若提示「保存为图片」和「保存为动图」，请选后者。</p>
+  </section>
+
+  <footer>
+    共 7 款 · 每张不到 0.5MB · 微信自定义表情单个上限 5MB<br>
+    保存后随时可以在微信里删除，放心添加
+  </footer>
+</div>
+
+<div class="viewer" id="viewer" hidden>
+  <button class="close" id="close" aria-label="关闭">✕</button>
+  <img id="vimg" src="" alt="">
+  <p class="vname" id="vname"></p>
+  <p class="vhint">长按这张图 →「保存图片」</p>
+</div>
+
+<script>
+  (function () {
+    var viewer = document.getElementById('viewer');
+    var vimg = document.getElementById('vimg');
+    var vname = document.getElementById('vname');
+
+    function open(src, name) {
+      vimg.src = src;
+      vimg.alt = name;
+      vname.textContent = name;
+      viewer.hidden = false;
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      viewer.hidden = true;
+      vimg.src = '';
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('grid').addEventListener('click', function (e) {
+      var card = e.target.closest('.card');
+      if (card) open(card.dataset.src || card.querySelector('img').src, card.dataset.name);
+    });
+    document.getElementById('close').addEventListener('click', close);
+    viewer.addEventListener('click', function (e) {
+      if (e.target === viewer) close();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !viewer.hidden) close();
+    });
+  })();
+</script>
+</body>
+</html>
